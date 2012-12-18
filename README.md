@@ -16,3 +16,4 @@ In settings.py:
 	HTTP_PORT (default is 8888)
 	SCHEDULER_PERSIST (default is True)
 	SCHEDULER_QUEUE_NAME (default is the name of the spider)
+	QUEUE_TYPE: FIFO (default) or LIFO

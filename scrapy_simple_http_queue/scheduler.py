@@ -8,11 +8,12 @@ HTTP_PORT = 8888
 SCHEDULER_PERSIST = True
 
 class Scheduler(object):
-    def __init__(self, host, port, persist, queue_key):
+    def __init__(self, host, port, persist, queue_key, queue_type):
         self.host = host
         self.port = port
         self.queue_key = queue_key
 	self.persist = persist
+	self.queue_type = queue_type
 
     def __len__(self):
         return self.client.size()
@@ -24,13 +25,23 @@ class Scheduler(object):
         port = settings.get('HTTP_PORT', HTTP_PORT)
         persist = settings.get('SCHEDULER_PERSIST', SCHEDULER_PERSIST)
         queue_key = settings.get('SCHEDULER_QUEUE_NAME', None)
-        return cls(host, port, persist, queue_key)
+        queue_type = settings.get('QUEUE_TYPE', 'FIFO')
+
+	if queue_type not in ('FIFO', 'LIFO'):
+	    raise Error('QUEUE_TYPE must be FIFO (default) or LIFO')
+
+        return cls(host, port, persist, queue_key, queue_type)
 
     def open(self, spider):
         self.spider = spider
 	if self.queue_key is None:
 	    self.queue_key = spider.name
-	self.client = Client(self.host, self.port, self.queue_key)
+	if self.queue_type == 'LIFO':
+	    queue_type_num = Client.LIFO
+	else:
+	    queue_type_num = Client.FIFO
+
+	self.client = Client(self.host, self.port, self.queue_key, queue_type_num)
         # notice if there are requests already in the queue
 	size = self.client.size()
         if size > 0:
