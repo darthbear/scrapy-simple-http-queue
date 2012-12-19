@@ -21,4 +21,4 @@ In settings.py:
 Use FIFO if you want to do a breadth-first crawling.
 Use LIFO if you want to do a depth-first crawling.
 
-LIFO will consume less memory as it will need less elements in the queue.
+LIFO will consume less memory as the queue will be shorter when crawling pages.
