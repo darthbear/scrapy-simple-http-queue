@@ -17,3 +17,8 @@ In settings.py:
 	SCHEDULER_PERSIST (default is True)
 	SCHEDULER_QUEUE_NAME (default is the name of the spider)
 	QUEUE_TYPE: FIFO (default) or LIFO
+
+Use FIFO if you want to do a breadth-first crawling.
+Use LIFO if you want to do a depth-first crawling.
+
+LIFO will consume less memory as it will need less elements in the queue.
