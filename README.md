@@ -8,6 +8,10 @@ First run simple-http-queue:
 	cd externals/simple-http-queue/simple_http_queue
 	python HttpQueue.py /tmp/queue.dat 8888
 
+Initialize externals libs:
+	git submodule init
+	git submodule update
+
 Example: `run_example.sh`
 
 In settings.py:
