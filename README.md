@@ -9,6 +9,7 @@ First run simple-http-queue:
 	python HttpQueue.py /tmp/queue.dat 8888
 
 Initialize externals libs:
+
 	git submodule init
 	git submodule update
 
